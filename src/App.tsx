@@ -1,37 +1,16 @@
-import React, {
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useState,
-} from "react";
-import "./App.css";
-
-type FlyOutContextType = {
-  open: boolean;
-  toggle: React.Dispatch<SetStateAction<boolean>>;
-};
-
-type AppProps = {
-  children: ReactNode;
-};
-
-const FlyOutContext = createContext({
-  open: false,
-  toggle: () => {},
-} as FlyOutContextType);
-
-function App({ children }: AppProps) {
-  const [open, toggle] = useState<boolean>(false);
-  const contextValue: FlyOutContextType = {
-    open,
-    toggle,
-  };
-
+import React from "react";
+import * as FlyOut from "./component/Flyout/FlyOutRoot";
+import { FlyOutItem } from "./component/Flyout/components/FlyOutList";
+const App: React.FunctionComponent = () => {
   return (
-    <FlyOutContext.Provider value={contextValue}>
-      {children}
-    </FlyOutContext.Provider>
+    <FlyOut.Root>
+      <FlyOut.Toggle />
+      <FlyOut.List>
+        <FlyOutItem>Edit</FlyOutItem>
+        <FlyOutItem>Delete</FlyOutItem>
+      </FlyOut.List>
+    </FlyOut.Root>
   );
-}
+};
 
 export default App;
